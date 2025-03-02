@@ -9,15 +9,10 @@ let dataCount = 0;
 for (const btn of completeBtns) {
   btn.addEventListener("click", function (event) {
     const button = event.target;
-    const activityText = button.getAttribute("data-activity");
+    const activityText = button.parentNode.parentNode.querySelector('h2').innerText;
     const alertText = button.getAttribute("data-alert");
-
-    button.setAttribute("disabled", true);
-    completeTaskCount.innerText = itemIntValue(completeTaskCount) + 1;
-    taskCount.innerText = itemIntValue(taskCount) - 1;
-    addActivity(activityText);
     dataCount +=1;
-
+    
     if (dataCount === 6 ) {
       if (confirm(alertText)) {
         alert("Congratulation!! You have completed all tasks");
@@ -25,6 +20,10 @@ for (const btn of completeBtns) {
     } else {
       alert(alertText);
     }
+    button.setAttribute("disabled", true);
+    completeTaskCount.innerText = itemIntValue(completeTaskCount) + 1;
+    taskCount.innerText = itemIntValue(taskCount) - 1;
+    addActivity(activityText);
   });
 }
 
@@ -41,7 +40,7 @@ function addActivity(text) {
   });
   const div = document.createElement("div");
   div.classList.add("p-3", "rounded-md", "bg-gray-100", "text-sm");
-  div.innerText = `${text} ${time}`;
+  div.innerText = `You have completed the task ${text} at ${time}`;
   activityContainer.appendChild(div);
 }
 
